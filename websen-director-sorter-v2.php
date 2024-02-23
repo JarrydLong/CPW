@@ -151,14 +151,14 @@ function my_pmpro_directory_widget_filter_sql_parts( $sql_parts, $levels, $s, $p
 	if ( ! empty( $_REQUEST['counties_served'] ) && is_array( $_REQUEST['counties_served'] ) ) {
 		$sql_parts['JOIN']    .= " LEFT JOIN $wpdb->usermeta um_counties ON um_counties.meta_key = 'counties_served' AND u.ID = um_counties.user_id ";
 		$sql_parts['WHERE']   .= ' AND ( ';
-		$first_profession = true;
+		$first_county = true;
 		foreach ( $_REQUEST['counties_served'] as $counties_served ) {
-			if ( $first_profession ) {
-				$first_profession = false;
+			if ( $first_county ) {
+				$first_county = false;
 			} else {
 				$sql_parts['WHERE'] .= ' OR ';
 			}
-			$sql_parts['WHERE'] .= " um_profession.meta_value like '%{$profession}%' ";
+			$sql_parts['WHERE'] .= " um_counties.meta_value like '%{$counties_served}%' ";
 		}
 		$sql_parts['WHERE'] .= ' ) ';
 	}
